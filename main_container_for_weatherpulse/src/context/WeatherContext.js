@@ -1,6 +1,9 @@
 import React, { createContext, useContext, useReducer, useEffect } from 'react';
 import { getCurrentWeather, getForecast } from '../services/weatherService';
 
+// Create context
+const WeatherContext = createContext();
+
 // Initial state for the weather context
 const initialState = {
   location: 'New York',
