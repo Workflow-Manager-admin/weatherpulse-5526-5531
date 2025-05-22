@@ -1,37 +1,81 @@
 import React from 'react';
+import { WeatherProvider } from './context/WeatherContext';
+import { useWeather } from './context/WeatherContext';
+import { FaCloudSun } from 'react-icons/fa';
+
+import SearchBar from './components/SearchBar';
+import CurrentWeather from './components/CurrentWeather';
+import Forecast from './components/Forecast';
+import WeatherDetails from './components/WeatherDetails';
+import LoadingSpinner from './components/LoadingSpinner';
+
 import './App.css';
 
+// Main App wrapper that provides the WeatherContext
 function App() {
   return (
-    <div className="app">
+    <WeatherProvider>
+      <WeatherPulseContainer />
+    </WeatherProvider>
+  );
+}
+
+// Main container component for WeatherPulse
+const WeatherPulseContainer = () => {
+  const { currentWeather, loading, error } = useWeather();
+  
+  // Determine if it's day or night based on current time
+  const now = new Date();
+  const hours = now.getHours();
+  const isDay = hours >= 6 && hours < 18;
+
+  // Determine weather condition for styling
+  const weatherCondition = currentWeather?.weather?.[0]?.main || 'Clear';
+  
+  return (
+    <div className="app" data-weather-condition={weatherCondition} data-time={isDay ? 'day' : 'night'}>
       <nav className="navbar">
         <div className="container">
-          <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+          <div className="navbar-content">
             <div className="logo">
-              <span className="logo-symbol">*</span> KAVIA AI
+              <FaCloudSun className="logo-icon" /> WeatherPulse
             </div>
-            <button className="btn">Template Button</button>
+            <SearchBar />
           </div>
         </div>
       </nav>
 
-      <main>
+      <main className="main-content">
         <div className="container">
-          <div className="hero">
-            <div className="subtitle">AI Workflow Manager Template</div>
-            
-            <h1 className="title">main_container_for_weatherpulse</h1>
-            
-            <div className="description">
-              Start building your application.
+          {loading ? (
+            <LoadingSpinner />
+          ) : error ? (
+            <div className="error-message">
+              <p>{error}</p>
+              <button className="btn">Try Again</button>
             </div>
-            
-            <button className="btn btn-large">Button</button>
-          </div>
+          ) : (
+            <>
+              <CurrentWeather />
+              <Forecast />
+              <WeatherDetails />
+            </>
+          )}
         </div>
       </main>
+      
+      <footer className="footer">
+        <div className="container">
+          <p>
+            &copy; {new Date().getFullYear()} WeatherPulse. Weather data provided by OpenWeather API.
+          </p>
+          <p className="disclaimer">
+            For demonstration purposes only. Design by KAVIA.
+          </p>
+        </div>
+      </footer>
     </div>
   );
-}
+};
 
 export default App;
