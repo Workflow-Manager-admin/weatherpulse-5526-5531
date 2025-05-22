@@ -66,11 +66,14 @@ const weatherReducer = (state, action) => {
   }
 };
 
-// Create context
-const WeatherContext = createContext();
-
 // PUBLIC_INTERFACE
-export const useWeather = () => useContext(WeatherContext);
+export const useWeather = () => {
+  const context = useContext(WeatherContext);
+  if (context === undefined) {
+    throw new Error('useWeather must be used within a WeatherProvider');
+  }
+  return context;
+};
 
 // Provider component
 // PUBLIC_INTERFACE
