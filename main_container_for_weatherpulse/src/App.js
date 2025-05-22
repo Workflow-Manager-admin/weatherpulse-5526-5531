@@ -11,13 +11,13 @@ import LoadingSpinner from './components/LoadingSpinner';
 import './App.css';
 
 // Main App wrapper that provides the WeatherContext
-function App() {
+const App = () => {
   return (
     <WeatherProvider>
       <WeatherPulseContainer />
     </WeatherProvider>
   );
-}
+};
 
 // Main container component for WeatherPulse
 const WeatherPulseContainer = () => {
