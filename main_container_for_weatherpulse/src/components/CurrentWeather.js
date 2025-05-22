@@ -38,9 +38,19 @@ const CurrentWeather = () => {
           <p className="date-info">{formatDate(Date.now() / 1000, true)}</p>
         </div>
         <div className="temp-toggle">
-          <button className={`unit-toggle ${units === 'metric' ? 'active' : ''}`}>°C</button>
+          <button 
+            className={`unit-toggle ${units === 'metric' ? 'active' : ''}`}
+            onClick={() => toggleUnits()}
+          >
+            °C
+          </button>
           <span className="unit-divider">|</span>
-          <button className={`unit-toggle ${units === 'imperial' ? 'active' : ''}`}>°F</button>
+          <button 
+            className={`unit-toggle ${units === 'imperial' ? 'active' : ''}`}
+            onClick={() => toggleUnits()}
+          >
+            °F
+          </button>
         </div>
       </div>
 
