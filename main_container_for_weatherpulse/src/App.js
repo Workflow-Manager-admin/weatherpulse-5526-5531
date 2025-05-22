@@ -1,6 +1,5 @@
 import React from 'react';
-import { WeatherProvider } from './context/WeatherContext';
-import { useWeather } from './context/WeatherContext';
+import { WeatherProvider, useWeather } from './context/WeatherContext';
 import { FaCloudSun } from 'react-icons/fa';
 
 import SearchBar from './components/SearchBar';
