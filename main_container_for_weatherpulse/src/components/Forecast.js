@@ -2,7 +2,6 @@ import React from 'react';
 import { useWeather } from '../context/WeatherContext';
 import { 
   formatTemperature, 
-  formatDate, 
   formatTime, 
   getWeatherIconUrl,
   groupForecastByDay
